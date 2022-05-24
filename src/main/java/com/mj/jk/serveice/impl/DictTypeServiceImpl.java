@@ -1,5 +1,6 @@
 package com.mj.jk.serveice.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mj.jk.mapper.DictTypeMapper;
 import com.mj.jk.pojo.po.DictType;
 import com.mj.jk.serveice.DictTypeService;
@@ -11,16 +12,6 @@ import java.util.List;
 
 @Service
 @Transactional
-public class DictTypeServiceImpl implements DictTypeService {
+public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictType> implements DictTypeService {
 
-
-    @Autowired
-    DictTypeMapper dictTypeMapper;
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<DictType> list() {
-
-        return dictTypeMapper.list();
-    }
 }

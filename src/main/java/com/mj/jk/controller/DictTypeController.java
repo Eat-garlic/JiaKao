@@ -1,16 +1,17 @@
 package com.mj.jk.controller;
 
-import com.mj.jk.pojo.po.DictType;
+import com.mj.jk.pojo.query.KeywordQuery;
 import com.mj.jk.serveice.DictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
-@RestController
+
+@Controller
 @RequestMapping("/dictType")
 public class DictTypeController {
 
@@ -18,9 +19,11 @@ public class DictTypeController {
   DictTypeService dictTypeService;
 
     @GetMapping("/list")
-    public List<DictType> list (){
+    public String list (Model model, KeywordQuery query){
 
-        return dictTypeService.list();
+          model.addAttribute("data", dictTypeService.list());
+
+        return "pages/dictType";
     }
 
 
