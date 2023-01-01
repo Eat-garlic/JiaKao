@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {
+      "name": "jk",
+      "type": "com.eglc.jk.common.prop.JkProperties",
+      "sourceType": "com.eglc.jk.common.prop.JkProperties"
+    },
+    {
+      "name": "jk.cfg",
+      "type": "com.eglc.jk.common.prop.JkProperties$Cfg",
+      "sourceType": "com.eglc.jk.common.prop.JkProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
