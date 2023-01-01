@@ -8,7 +8,9 @@ spring:
 
 mybatis-plus:
   type-aliases-package: com.mj.jk.pojo
-
+  global-config:
+    db-config:
+      id-type: auto
 
 
 

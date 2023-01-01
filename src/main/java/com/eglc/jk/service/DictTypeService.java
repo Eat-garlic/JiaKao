@@ -7,7 +7,7 @@ import com.eglc.jk.pojo.po.DictType;
 import java.util.List;
 
 public interface DictTypeService extends IService<DictType> {
-   IPage list(Long page, Long size);
+   IPage list(Long page, Long size, String keyword) ;
 
 
 }
