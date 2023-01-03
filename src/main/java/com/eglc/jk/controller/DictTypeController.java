@@ -1,7 +1,7 @@
 package com.eglc.jk.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.eglc.jk.pojo.po.DictType;
+import com.eglc.jk.pojo.query.DictTypeQuery;
 import com.eglc.jk.service.DictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @RestController
@@ -19,13 +18,15 @@ public class DictTypeController {
     private DictTypeService service;
 
     @GetMapping
-    public Map<String, Object> list(Long page, Long size, String keyword) {
-        IPage<DictType> iPage = service.list(page, size, keyword);
+    public Map<String, Object> list(DictTypeQuery query) {
+        service.list(query);
         Map<String, Object> map = new HashMap<>();
         map.put("code", 0);
         map.put("msg", "");
-        map.put("count", iPage.getTotal());
-        map.put("data", iPage.getRecords());
+        map.put("count",query.getCount());
+        map.put("data", query.getData());
+
+
         return map;
     }
 
