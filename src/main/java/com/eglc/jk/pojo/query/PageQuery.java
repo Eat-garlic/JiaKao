@@ -9,6 +9,7 @@ public class PageQuery {
     private  static  final  int DEFAULT_SIZE = 10;
     private Long page;
     private Long size;
+
     /**
      * 当前 这一页的数据
      */

@@ -18,8 +18,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> implements ProvinceService {
 
-    @Autowired
-    ProvinceMapper mapper;
+
 
 
     @Override
@@ -32,7 +31,7 @@ public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> i
                     .like(Province::getPlate, keyword).or();
         }
         
-         mapper.selectPage(new MpPage<>(query), wrapper).updateQuery(query);
+        baseMapper.selectPage(new MpPage<>(query), wrapper).updateQuery(query);
 
     }
 

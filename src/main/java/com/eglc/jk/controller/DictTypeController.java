@@ -35,11 +35,11 @@ public class DictTypeController {
     public Map<String, Object> remove(String id) {
 
         Map<String, Object> map = new HashMap<>();
-        if (service.removeByIds(Arrays.asList(id.split(",")))) {
+        if (! service.removeByIds(Arrays.asList(id.split(",")))) {
             map.put("code", 0);
             map.put("msg", "删除成功");
         } else {
-            new RuntimeException("删除失败");
+            new RuntimeException("删除 失败");
         }
         return map;
 
