@@ -1,6 +1,4 @@
 package com.eglc.jk.service.impl;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eglc.jk.common.enhance.MpPage;
 import com.eglc.jk.common.enhance.MpQueryWrapper;
@@ -18,20 +16,13 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictType> i
 
     @Override
     public void list(DictTypeQuery query) {
-
-
         MpQueryWrapper<DictType> wrapper = new MpQueryWrapper<>();
 
-
         wrapper.like(query.getKeyword(), DictType::getIntro,DictType::getName,DictType::getValue);
-
 
         wrapper.orderByDesc(DictType::getId);
 
        baseMapper.selectPage(new MpPage(query), wrapper).updateQuery(query);//select count (*) from dict_type
-
-
-
 
 
 

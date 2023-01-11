@@ -11,7 +11,6 @@ public class MpPage<T> extends Page<T> {
 
 
     public void updateQuery (PageQuery query){
-
         query.setCount(getTotal());
         query.setPages(getPages());
         query.setData(getRecords());

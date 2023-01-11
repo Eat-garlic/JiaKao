@@ -1,7 +1,11 @@
 package com.eglc.jk.controller;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.eglc.jk.common.exception.CommonException;
 import com.eglc.jk.pojo.po.DictType;
 import com.eglc.jk.pojo.query.DictTypeQuery;
+import com.eglc.jk.pojo.result.R;
+import com.eglc.jk.common.util.Rs;
 import com.eglc.jk.service.DictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,55 +17,27 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/dictTypes")
-public class DictTypeController {
+public class DictTypeController extends BaseController<DictType>{
     @Autowired
     private DictTypeService service;
 
     @GetMapping
-    public Map<String, Object> list(DictTypeQuery query) {
+    public R list(DictTypeQuery query) {
         service.list(query);
         Map<String, Object> map = new HashMap<>();
-        map.put("code", 0);
+     /*   map.put("code", 0);
         map.put("msg", "");
         map.put("count",query.getCount());
         map.put("data", query.getData());
-
-
-        return map;
+*/
+        return Rs.ok(query);
     }
 
 
-    @PostMapping("/remove")
-    public Map<String, Object> remove(String id) {
-
-        Map<String, Object> map = new HashMap<>();
-        if (! service.removeByIds(Arrays.asList(id.split(",")))) {
-            map.put("code", 0);
-            map.put("msg", "删除成功");
-        } else {
-            new RuntimeException("删除 失败");
-        }
-        return map;
-
-    };
-
-
-
-    @PostMapping("/save")
-    public Map<String, Object> save(DictType dictType){
-        Map<String, Object> map = new HashMap<>();
-        if(service.saveOrUpdate(dictType)) {
-            map.put("code", 0);
-            map.put("msg", "保存成功");
-
-        }else {
-            new RuntimeException("保存失败");
-            }
-
-        return  map;
-        }
-
-
+    @Override
+    protected IService<DictType> getService() {
+        return service;
+    }
 
 
     }
