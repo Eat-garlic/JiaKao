@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
 @Service
 public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictType> implements DictTypeService {
 
-
     @Override
     public void list(DictTypeQuery query) {
         MpQueryWrapper<DictType> wrapper = new MpQueryWrapper<>();

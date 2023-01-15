@@ -1,5 +1,4 @@
 package com.eglc.jk.service.impl;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eglc.jk.common.enhance.MpPage;
 import com.eglc.jk.common.enhance.MpQueryWrapper;
@@ -17,6 +16,14 @@ public class DictItemServiceImpl extends ServiceImpl<DictItemMapper, DictItem>im
         MpQueryWrapper<DictItem> wrapper = new MpQueryWrapper<>();
 
         wrapper.like(query.getKeyword(),DictItem::getName,DictItem::getValue);
+
+
+        Integer typeId = query.getTypeId();
+        if (typeId != null && typeId > 0){
+            wrapper.eq(DictItem::getTypeId, typeId);
+        }
+
+        wrapper.orderByDesc(DictItem::getId);
 
         baseMapper.selectPage(new MpPage<>(query),wrapper).updateQuery(query);
 
