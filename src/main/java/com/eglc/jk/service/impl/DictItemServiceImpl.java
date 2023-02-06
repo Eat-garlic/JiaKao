@@ -7,10 +7,13 @@ import com.eglc.jk.pojo.po.DictItem;
 import com.eglc.jk.pojo.query.DictItemQuery;
 import com.eglc.jk.service.DictItemService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class DictItemServiceImpl extends ServiceImpl<DictItemMapper, DictItem>implements DictItemService {
     @Override
+    @Transactional(readOnly = true)
     public void list(DictItemQuery query) {
 
         MpQueryWrapper<DictItem> wrapper = new MpQueryWrapper<>();

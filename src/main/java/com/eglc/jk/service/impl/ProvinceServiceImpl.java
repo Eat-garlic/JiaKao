@@ -13,15 +13,18 @@ import com.eglc.jk.pojo.query.ProvinceQuery;
 import com.eglc.jk.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Service
+@Transactional
 public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> implements ProvinceService {
 
 
 
 
     @Override
+    @Transactional(readOnly = true)
     public void  list(ProvinceQuery query) {
 
         LambdaQueryWrapper<Province> wrapper = new LambdaQueryWrapper<>();

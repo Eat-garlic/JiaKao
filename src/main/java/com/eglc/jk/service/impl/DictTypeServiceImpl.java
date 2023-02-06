@@ -7,13 +7,16 @@ import com.eglc.jk.pojo.po.DictType;
 import com.eglc.jk.pojo.query.DictTypeQuery;
 import com.eglc.jk.service.DictTypeService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 
 @Service
+@Transactional
 public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictType> implements DictTypeService {
 
     @Override
+    @Transactional(readOnly = true)
     public void list(DictTypeQuery query) {
         MpQueryWrapper<DictType> wrapper = new MpQueryWrapper<>();
 
