@@ -1,8 +1,7 @@
 package com.eglc.jk.common.util;
 
 import com.eglc.jk.common.exception.CommonException;
-import com.eglc.jk.pojo.query.DictItemQuery;
-import com.eglc.jk.pojo.query.DictTypeQuery;
+import com.eglc.jk.pojo.query.*;
 import com.eglc.jk.pojo.result.R;
 
 public class Rs  {
@@ -42,6 +41,7 @@ public class Rs  {
 
     public static R ok (Object object) {
      /*   return new R().setSuccess(true).setMsg(msg);*/
+
         return new R(object);
     }
 
@@ -60,7 +60,7 @@ public class Rs  {
 
    
 
-    public static R ok(DictItemQuery query){
+    public static R ok(PageQuery query){
       /*  R r = new R();
         r.put(K_COUNT,query.getCount());
         return r.setSuccess(true).setData(query.getData());*/
@@ -70,7 +70,27 @@ public class Rs  {
         return r;
     }
 
+  /*  public static R ok(ProvinceQuery query){
+      *//*  R r = new R();
+        r.put(K_COUNT,query.getCount());
+        return r.setSuccess(true).setData(query.getData());*//*
 
+        R r =  new R(query.getData());
+        r.put(K_COUNT,query.getCount());
+        return r;
+    }
+
+    public static R ok(CityQuery query){
+      *//*  R r = new R();
+        r.put(K_COUNT,query.getCount());
+        return r.setSuccess(true).setData(query.getData());*//*
+
+        R r =  new R(query.getData());
+        r.put(K_COUNT,query.getCount());
+        return r;
+    }
+
+*/
 
 
 

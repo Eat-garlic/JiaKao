@@ -1,12 +1,13 @@
 package com.eglc.jk.pojo.result;
 import com.eglc.jk.common.enhance.Jsonable;
 import java.util.HashMap;
-public class R extends HashMap<String, Object> implements Jsonable {
-
+public class R extends HashMap<String, Object>
+        implements Jsonable {
     public static final String K_CODE = "code";
     public static final String K_MSG = "msg";
     public static final String K_DATA = "data";
     public static final int K_SUCCESS = 0;
+    public static final String K_COUNT = "count";
     public static final int K_DEFAULT_ERROR = CodeMsg.BAD_REQUEST.getCode();
 
 
