@@ -2,6 +2,7 @@ package com.eglc.jk.common.util;
 
 import com.eglc.jk.common.exception.CommonException;
 import com.eglc.jk.pojo.query.*;
+import com.eglc.jk.pojo.result.CodeMsg;
 import com.eglc.jk.pojo.result.R;
 
 public class Rs  {
@@ -33,32 +34,19 @@ public class Rs  {
 
 
 
-    public static R ok (String msg) {
-     /*   return new R().setSuccess(true).setMsg(msg);*/
-        return new R(true,msg);
-    }
-
-
-    public static R ok (Object object) {
-     /*   return new R().setSuccess(true).setMsg(msg);*/
-
-        return new R(object);
-    }
-
-
-    public static R ok  (DictTypeQuery query){
-      /*  R r = new R();
+    /* public static R ok  (DictTypeQuery query){
+     *//*  R r = new R();
         r.put(K_COUNT,query.getCount());
-        return r.setSuccess(true).setData(query.getData());*/
+        return r.setSuccess(true).setData(query.getData());*//*
 
        R r =  new R(query.getData());
        r.put(K_COUNT,query.getCount());
        return r;
 
 
-    }
+    }*/
 
-   
+
 
     public static R ok(PageQuery query){
       /*  R r = new R();
@@ -70,8 +58,9 @@ public class Rs  {
         return r;
     }
 
-  /*  public static R ok(ProvinceQuery query){
-      *//*  R r = new R();
+
+    /*  public static R ok(ProvinceQuery query){
+     *//*  R r = new R();
         r.put(K_COUNT,query.getCount());
         return r.setSuccess(true).setData(query.getData());*//*
 
@@ -79,7 +68,6 @@ public class Rs  {
         r.put(K_COUNT,query.getCount());
         return r;
     }
-
     public static R ok(CityQuery query){
       *//*  R r = new R();
         r.put(K_COUNT,query.getCount());
@@ -93,5 +81,30 @@ public class Rs  {
 */
 
 
+
+
+
+    public static R ok (String msg) {
+     /*   return new R().setSuccess(true).setMsg(msg);*/
+        return new R(true,msg);
+    }
+
+
+    public static R ok (Object object) {
+     /*   return new R().setSuccess(true).setMsg(msg);*/
+
+        return new R(object);
+    }
+
+
+
+    public static  R raise(String msg) throws CommonException {
+        throw new CommonException(msg);
+    }
+
+
+    public static  R raise(CodeMsg codeMsg) throws CommonException {
+        throw new CommonException(codeMsg);
+    }
 
 }

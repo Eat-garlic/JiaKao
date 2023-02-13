@@ -2,6 +2,7 @@ package com.eglc.jk.controller;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.eglc.jk.common.exception.CommonException;
 import com.eglc.jk.common.util.Rs;
+import com.eglc.jk.pojo.result.CodeMsg;
 import com.eglc.jk.pojo.result.R;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Arrays;
@@ -18,9 +19,9 @@ public abstract class BaseController<T> {
         if (getService().removeByIds(Arrays.asList(id.split(",")))) {
            /* map.put("code", 0);
             map.put("msg", "删除成功");*/
-            return Rs.ok("删除成功");
+            return Rs.ok(CodeMsg.REMOVE_OK);
         } else {
-            throw new CommonException("删除失败");
+          return Rs.raise(CodeMsg.REMOVE_ERROR);
         }
     };
 
@@ -32,9 +33,9 @@ public abstract class BaseController<T> {
         if(getService().saveOrUpdate(entity)) {
           /*  map.put("code", 0);
             map.put("msg", "保存成功");*/
-            return Rs.ok("保存成功 ");
+            return Rs.ok(CodeMsg.SAVE_OK);
         }else {
-            throw new CommonException("删除失败");
+            throw new CommonException(CodeMsg.SAVE_ERROR);
         }
     }
 
