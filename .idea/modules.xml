@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JiaKao.iml" filepath="$PROJECT_DIR$/JiaKao.iml" />
       <module fileurl="file://$PROJECT_DIR$/../JiaKaoFE/JiaKaoFE.iml" filepath="$PROJECT_DIR$/../JiaKaoFE/JiaKaoFE.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/MJ-JiaKao/MJ-JiaKao.iml" filepath="$USER_HOME$/Desktop/MJ-JiaKao/MJ-JiaKao.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/MJ-JiaKaoFE/MJ-JiaKaoFE.iml" filepath="$USER_HOME$/Desktop/MJ-JiaKaoFE/MJ-JiaKaoFE.iml" />
     </modules>
   </component>
 </project>
