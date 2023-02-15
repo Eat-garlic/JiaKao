@@ -16,8 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/plateRegions")
 public class PlateRegionController extends BaseController<PlateRegion>{
+
     @Autowired
     private PlateRegionService service;
+
+
+    @GetMapping("/regions")
+    public R listRegion() {
+
+       /*  Map<String, Object> map = new HashMap<>();
+       map.put("code", 0);
+        map.put("msg", "");
+        map.put("count",query.getCount());
+        map.put("data", query.getData());
+*/
+        return Rs.ok(service.listRegions());
+    }
+
 
     @GetMapping("/provinces")
     public R listProvinces(ProvinceQuery query) {

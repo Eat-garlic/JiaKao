@@ -3,6 +3,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eglc.jk.common.enhance.MpPage;
 import com.eglc.jk.common.enhance.MpQueryWrapper;
 import com.eglc.jk.mapper.PlateRegionMapper;
+import com.eglc.jk.pojo.dto.ProvinceDto;
 import com.eglc.jk.pojo.po.PlateRegion;
 import com.eglc.jk.pojo.query.CityQuery;
 import com.eglc.jk.pojo.query.ProvinceQuery;
@@ -13,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @Transactional
 public class PlateRegionServiceImpl extends ServiceImpl<PlateRegionMapper, PlateRegion> implements PlateRegionService {
+
+
 
     @Override
     public boolean save(PlateRegion entity) {
@@ -75,10 +77,11 @@ public class PlateRegionServiceImpl extends ServiceImpl<PlateRegionMapper, Plate
             wrapper.ne(PlateRegion::getParentId, 0);
         };
 
-
         baseMapper.selectPage( new MpPage<>(query), wrapper).updateQuery(query);
 
     }
+
+
 
     @Override
     public List<PlateRegion> listProvinces() {
@@ -87,6 +90,17 @@ public class PlateRegionServiceImpl extends ServiceImpl<PlateRegionMapper, Plate
         wrapper.eq(PlateRegion::getParentId,0);
         return  baseMapper.selectList(wrapper);
     }
+
+
+
+
+    @Override
+    public List<ProvinceDto> listRegions() {
+
+        return baseMapper.selectRegions();
+    }
+
+
 }
 
 
