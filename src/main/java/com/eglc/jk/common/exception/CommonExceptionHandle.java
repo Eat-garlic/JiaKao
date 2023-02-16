@@ -2,25 +2,26 @@ package com.eglc.jk.common.exception;
 
 import com.eglc.jk.common.util.Debugs;
 import com.eglc.jk.common.util.Rs;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import com.eglc.jk.pojo.result.R;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class CommonExceptionHandle {
     @ExceptionHandler({Throwable.class})
-    public void handle(Throwable t,
-                                HttpServletRequest request,
-                                HttpServletResponse response)throws Exception{
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    public R handle(Throwable t,
+                    HttpServletRequest request,
+                    HttpServletResponse response)throws Exception{
 
-            response.setContentType("application/json; charset=UTF-8");
-            response.setStatus(400);
 
-            response.getWriter().write(Rs.error(t).jsonString());
-
+        Debugs.fly(t::printStackTrace);
+        return Rs.error(t);
 
        /*正常写
         Debugs.fly(new Runnable() {
@@ -42,10 +43,10 @@ public class CommonExceptionHandle {
 
         */
 
-        Debugs.fly(t::printStackTrace);
 
+    }
     }
 
 
 
-}
+

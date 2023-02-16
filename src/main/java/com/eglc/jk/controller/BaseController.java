@@ -1,10 +1,11 @@
 package com.eglc.jk.controller;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.eglc.jk.common.exception.CommonException;
 import com.eglc.jk.common.util.Rs;
 import com.eglc.jk.pojo.result.CodeMsg;
 import com.eglc.jk.pojo.result.R;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +29,14 @@ public abstract class BaseController<T> {
 
 
     @PostMapping("/save")
-    public Map<String, Object> save(T entity){
-        Map<String, Object> map = new HashMap<>();
+    public R save(@Valid T entity){
+      //  Map<String, Object> map = new HashMap<>();
         if(getService().saveOrUpdate(entity)) {
           /*  map.put("code", 0);
             map.put("msg", "保存成功");*/
             return Rs.ok(CodeMsg.SAVE_OK);
         }else {
-            throw new CommonException(CodeMsg.SAVE_ERROR);
+            return Rs.raise(CodeMsg.SAVE_ERROR);
         }
     }
 
