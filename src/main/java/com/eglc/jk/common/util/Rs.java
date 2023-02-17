@@ -8,12 +8,21 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Rs  {
 
     public static final String K_COUNT = "count";
+
+
+    public static R error (){
+        /*   return new R().setSuccess(false);*/
+        return new R(false);
+    }
+
 
     public static R error(Throwable e) {
         if (e instanceof CommonException){
@@ -25,28 +34,28 @@ public class Rs  {
         }else if (e instanceof BindException){
                     //因为  BindException 是属于Throwable类型的
                 //如果e 是Bin类型异常，传进来的是一只动物呀，传进来 的是Throwable 这种类型的，如果父类Throwable想要用 子类的
-                //的方法 ，就得强制的向下转型，转为子类的类型才可以用子类的方法。 所以
-
+                //的方法 ，就得强制的向下转型，转为子类的类型才可以用子类的方法。 你把e点进去，所以
             BindException be = (BindException) e;
             List<ObjectError> errors = be.getBindingResult().getAllErrors();
                 //函数式编程 的方式  新特性1.8之后 的 Stream流
             List<String> defaultMsgs = errors.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
-
-
-
         /*.map(e->{
                 e.getDefaultMessage();
-
             }).collect()*/
-            
-
-
            /* List<String> defaultMsgs = new ArrayList<>(errors.size());
             for (ObjectError error : errors) {
                 defaultMsgs.add(error.getDefaultMessage());
             }*/
             String msg = StringUtils.collectionToDelimitedString(defaultMsgs,", ");
-            return  error(msg);
+            return error(msg);
+        }else if(e instanceof ConstraintViolationException){
+            ConstraintViolationException cve = (ConstraintViolationException) e;
+            List<String> msgs = cve.getConstraintViolations()
+                    .stream().map(ConstraintViolation::getMessage)
+                    .collect(Collectors.toList());
+            String msg  = StringUtils.collectionToDelimitedString(msgs, ", ");
+            return error(msg);
+
         } else {
             //return Rs.error(e.getMessage());
             return Rs.error();
@@ -57,10 +66,6 @@ public class Rs  {
 
 
 
-    public static R error (){
-     /*   return new R().setSuccess(false);*/
-        return new R(false);
-    }
 
     public static R error (String msg) {
       /*  return new R().setSuccess(false).setMsg(msg);*/
