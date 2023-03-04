@@ -6,8 +6,9 @@ public class R extends HashMap<String, Object>
     public static final String K_CODE = "code";
     public static final String K_MSG = "msg";
     public static final String K_DATA = "data";
-    public static final int K_SUCCESS = CodeMsg.OPERATE_OK.getCode();
     public static final String K_COUNT = "count";
+
+    public static final int K_SUCCESS = CodeMsg.OPERATE_OK.getCode();
     public static final int K_DEFAULT_ERROR = CodeMsg.BAD_REQUEST.getCode();
 
 

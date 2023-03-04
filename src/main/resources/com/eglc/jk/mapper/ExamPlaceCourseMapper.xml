@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eglc.jk.mapper.ExamPlaceCourseMapper">
+    <resultMap id="rmSelectPageVos"
+               type="ExamPlaceCourseVo">
+    </resultMap>
+
+    <!--先写selct标签， 后面写映射-->
+
+
+    <select id="selectPageVos"
+            resultMap="rmSelectPageVos">
+            select
+                c.id ,
+                c.name,
+                c.price,
+                c.type,
+                c.intro,
+                c.place_id,
+                P.province_id,
+                p.city_id
+            from exam_place_course  c
+                     join  exam_place p on c.place_id = p.id
+            ${ew.customSqlSegment}
+                </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

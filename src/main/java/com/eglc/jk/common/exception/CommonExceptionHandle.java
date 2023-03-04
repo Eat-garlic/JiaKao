@@ -1,8 +1,8 @@
 package com.eglc.jk.common.exception;
 
 import com.eglc.jk.common.util.Debugs;
-import com.eglc.jk.common.util.Rs;
-import com.eglc.jk.pojo.result.R;
+import com.eglc.jk.common.util.JsonVos;
+import com.eglc.jk.pojo.vo.JsonVo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 public class CommonExceptionHandle {
     @ExceptionHandler({Throwable.class})
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    public R handle(Throwable t,
-                    HttpServletRequest request,
-                    HttpServletResponse response)throws Exception{
+    public JsonVo handle(Throwable t,
+                         HttpServletRequest request,
+                         HttpServletResponse response)throws Exception{
 
 
         Debugs.fly(t::printStackTrace);
-        return Rs.error(t);
+        return JsonVos.error(t);
 
        /*正常写
         Debugs.fly(new Runnable() {

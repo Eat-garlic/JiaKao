@@ -9,7 +9,7 @@ import com.eglc.jk.common.foreign.anno.ForeignField.ForeignFields;
 import com.eglc.jk.common.foreign.info.ForeignFieldInfo;
 import com.eglc.jk.common.foreign.info.ForeignTableInfo;
 import com.eglc.jk.common.util.Classes;
-import com.eglc.jk.common.util.Rs;
+import com.eglc.jk.common.util.JsonVos;
 import com.eglc.jk.common.util.Strings;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -78,7 +78,7 @@ public class ForeignAspect implements InitializingBean {
             if (mainField.getCascade() == ForeignCascade.DEFAULT) { // 默认
                 Integer count = mapper.selectCount(wrapper);
                 if (count == 0) continue;
-             Rs.raise(String.format("有%d条【%s】数据相关联，无法删除！", count, subTable.getTable()));
+             JsonVos.raise(String.format("有%d条【%s】数据相关联，无法删除！", count, subTable.getTable()));
             } else { // 删除关联数据
                 mapper.delete(wrapper);
             }
@@ -136,7 +136,7 @@ public class ForeignAspect implements InitializingBean {
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         Resource[] rs = resolver.getResources(FOREIGN_SCAN);
         if (rs.length == 0) {
-           Rs.raise("FOREIGN_SCAN配置错误，找不到任何类信息");
+           JsonVos.raise("FOREIGN_SCAN配置错误，找不到任何类信息");
         }
 
         MetadataReaderFactory readerFactory = new CachingMetadataReaderFactory(resourceLoader);

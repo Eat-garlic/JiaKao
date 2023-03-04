@@ -1,9 +1,11 @@
 package com.eglc.jk.controller;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.eglc.jk.common.util.Rs;
+import com.eglc.jk.common.util.JsonVos;
 import com.eglc.jk.pojo.result.CodeMsg;
-import com.eglc.jk.pojo.result.R;
+import com.eglc.jk.pojo.vo.JsonVo;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,35 +14,44 @@ import javax.validation.constraints.NotBlank;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 @Validated
-public abstract class BaseController<T> {
-   protected abstract IService<T> getService();
+public abstract class BaseController<Po,ReqVo> {
+   protected abstract IService<Po> getService();
+
+   protected abstract Function<ReqVo,Po> getFunction();
 
 
     @PostMapping("/remove")
-    public R remove(@NotBlank(message = "id不能为空") String id) {
+    @ApiOperation("删除一条或多条记录")
+    public JsonVo remove(@ApiParam(value = "一个或多个id,多个id用逗号拼接",  required = true)
+                    @NotBlank(message = "id不能为空") String id) {
         Map<String, Object> map = new HashMap<>();
         if (getService().removeByIds(Arrays.asList(id.split(",")))) {
            /* map.put("code", 0);
             map.put("msg", "删除成功");*/
-            return Rs.ok(CodeMsg.REMOVE_OK);
+            return JsonVos.ok(CodeMsg.REMOVE_OK);
         } else {
-          return Rs.raise(CodeMsg.REMOVE_ERROR);
+          return JsonVos.raise(CodeMsg.REMOVE_ERROR);
         }
     };
 
 
 
     @PostMapping("/save")
-    public R save(@Valid T entity){
+    @ApiOperation("添加或更新")
+    public JsonVo save(@Valid ReqVo reqVo){
       //  Map<String, Object> map = new HashMap<>();
-        if(getService().saveOrUpdate(entity)) {
+
+        Po po = getFunction().apply(reqVo);
+
+        if(getService().saveOrUpdate(po)) {
           /*  map.put("code", 0);
             map.put("msg", "保存成功");*/
-            return Rs.ok(CodeMsg.SAVE_OK);
+            return JsonVos.ok(CodeMsg.SAVE_OK);
         }else {
-            return Rs.raise(CodeMsg.SAVE_ERROR);
+            return JsonVos.raise(CodeMsg.SAVE_ERROR);
         }
     }
 

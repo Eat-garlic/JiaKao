@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eglc.jk.mapper.ExamPlaceMapper">
+    <resultMap id="rmSelectRegionsExamPlaces"
+               type="ProvinceVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="plate" property="plate"/>
+        <collection property="children" ofType="CityVo">
+                <id column="city_id" property="id"/>
+                <result column="city_name" property="name"/>
+                <result column="city_plate" property="plate"/>
+                <collection property="children" ofType="ExamPlaceVo">
+                    <id column="exam_place_id" property="id"/>
+                    <result column="exam_place_name" property="name"/>
+                </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectRegionExamPlaces"
+            resultMap="rmSelectRegionsExamPlaces">select
+                    p.id,
+                    p.name ,
+                    p.plate,
+                    c.id city_id,
+                    c.name city_name,
+                    c.plate city_plate,
+                    e.id exam_place_id,
+                    e.name exam_place_name
+                from   plate_region p
+                    join   plate_region c on c.parent_id = p.id
+                    join   exam_place e on e.city_id = c.id
+
+                where  p.parent_id = 0</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<mapper namespace="com.mj.jk.mapper.PlateRegionMapper">
+    <resultMap id="rmSelectRegions"
+               type="ProvinceVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="plate" property="plate"/>
+        <collection property="children" ofType="CityVo">
+            <id column="city_id" property="id"/>
+            <result column="city_name" property="name"/>
+            <result column="city_plate" property="plate"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectRegions"
+            resultMap="rmSelectRegions">
+        SELECT
+            p.id,
+            p.name,
+            p.plate,
+            c.id city_id,
+            c.name city_name,
+            c.plate city_plate
+        FROM plate_region p
+             JOIN plate_region c ON c.parent_id = p.id
+        WHERE p.parent_id = 0
+        ORDER BY p.pinyin, c.plate
+    </select>
+</mapper>-->

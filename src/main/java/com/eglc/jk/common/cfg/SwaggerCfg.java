@@ -1,48 +1,89 @@
 package com.eglc.jk.common.cfg;
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import javax.servlet.http.HttpServlet;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerCfg {
+public class SwaggerCfg implements InitializingBean {
+    @Autowired
+    Environment environment;
+
+    private boolean enable;
+
 
     @Bean
-    public Docket examdocket(Environment environment){
-        boolean enable = environment.acceptsProfiles(Profiles.of("pro", "dev"));
-        return new Docket(DocumentationType.SWAGGER_2)
-                .ignoredParameterTypes(HttpServlet.class)
-                .enable(enable)
-                .groupName("考试")
-                .apiInfo(apiInfo("考场模块文档", "考场， 科1科4， 科2科3"))
+    public Docket examdocket(){
+        return groupDocket("考试",
+                            "考场模块文档",
+                            "考场， 科1科4， 科2科3" ,
+                            "/exam.*");
+
+
+        /* basedocket()
+                .groupName()
+                .apiInfo(apiInfo())
                 .select()
                 //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.regex("/exam.*"))
-                .build();
+                .paths(PathSelectors.regex())
+                .build();*/
     }
 
 
 
+
     @Bean
-    public Docket metadatadocket(Environment environment){
-        boolean enable = environment.acceptsProfiles(Profiles.of("pro", "dev"));
-        return new Docket(DocumentationType.SWAGGER_2)
-                .ignoredParameterTypes(HttpServlet.class)
-                .enable(enable)
-                .groupName("元数据")
-                .apiInfo(apiInfo("元数据模块文档","数据字典类型，数据字典条目，省份，城市"))
+    public Docket metadatadocket(){
+      return   groupDocket("元数据",
+                          "元数据模块文档",
+                          "数据字典类型，数据字典条目，省份，城市",
+                          "/(dict.*|plate.*)");
+
+    }
+
+
+
+
+
+    private Docket groupDocket(String group,
+                               String  title,
+                               String description,
+                               String regex){
+
+        return   basedocket()
+                .groupName(group)
+                .apiInfo(apiInfo(title,description))
                 .select()
-                //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
-                .paths(PathSelectors.regex("/(dict.*|plate.*)"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+               /* .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))*/
+                .paths(PathSelectors.regex(regex))
                 .build();
+
+    }
+
+
+    private Docket basedocket(){
+     /*   Parameter token = new ParameterBuilder()
+                .name("token")
+                .description("用户登录令牌")
+                .parameterType("header")
+                .modelRef( new ModelRef("String"))
+                .build();*/
+        return new Docket(DocumentationType.SWAGGER_2)
+               // .ignoredParameterTypes(HttpServlet.class)
+                .enable(enable);
     }
 
 
@@ -54,6 +95,11 @@ public class SwaggerCfg {
                 .build();
 
 
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+             enable = environment.acceptsProfiles(Profiles.of("pro", "dev"));
     }
 
 

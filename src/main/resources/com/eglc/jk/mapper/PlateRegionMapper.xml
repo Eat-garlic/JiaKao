@@ -5,11 +5,11 @@
 
 <mapper namespace="com.eglc.jk.mapper.PlateRegionMapper">
     <resultMap id="rmSelectRegions"
-               type="ProvinceDto">
+               type="ProvinceVo">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="plate" property="plate"/>
-        <collection property="children" ofType="CityDto">
+        <collection property="children" ofType="CityVo">
                 <id column="city_id" property="id"/>
                 <result column="city_name" property="name"/>
                 <result column="city_plate" property="plate"/>
@@ -30,7 +30,6 @@
             where  p.parent_id = 0
     </select>
 </mapper>
-
 
 
 

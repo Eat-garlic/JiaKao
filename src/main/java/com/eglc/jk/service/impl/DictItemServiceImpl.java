@@ -1,10 +1,14 @@
 package com.eglc.jk.service.impl;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eglc.jk.common.enhance.MpPage;
-import com.eglc.jk.common.enhance.MpQueryWrapper;
+import com.eglc.jk.common.enhance.MpLambadQueryWrapper;
+import com.eglc.jk.common.mapStruct.MapStructs;
 import com.eglc.jk.mapper.DictItemMapper;
 import com.eglc.jk.pojo.po.DictItem;
-import com.eglc.jk.pojo.query.DictItemQuery;
+import com.eglc.jk.pojo.vo.PageVo;
+import com.eglc.jk.pojo.vo.req.list.DictItemVo;
+import com.eglc.jk.pojo.vo.req.page.DictItemPageReqVo;
 import com.eglc.jk.service.DictItemService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class DictItemServiceImpl extends ServiceImpl<DictItemMapper, DictItem>implements DictItemService {
     @Override
     @Transactional(readOnly = true)
-    public void list(DictItemQuery query) {
+    public PageVo<DictItemVo> list(DictItemPageReqVo query) {
 
-        MpQueryWrapper<DictItem> wrapper = new MpQueryWrapper<>();
+        MpLambadQueryWrapper<DictItem> wrapper = new MpLambadQueryWrapper<>();
 
         wrapper.like(query.getKeyword(),DictItem::getName,DictItem::getValue);
 
@@ -28,7 +32,7 @@ public class DictItemServiceImpl extends ServiceImpl<DictItemMapper, DictItem>im
 
         wrapper.orderByDesc(DictItem::getId);
 
-        baseMapper.selectPage(new MpPage<>(query),wrapper).updateQuery(query);
+         return baseMapper.selectPage(new MpPage<>(query),wrapper).buildVo(MapStructs.INSTANCE::po2vo);
 
 
 
