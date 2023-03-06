@@ -1,5 +1,4 @@
 package com.eglc.jk.common.util;
-
 import com.eglc.jk.common.exception.CommonException;
 import com.eglc.jk.pojo.result.CodeMsg;
 import com.eglc.jk.pojo.vo.DataJsonVo;
@@ -9,7 +8,6 @@ import com.eglc.jk.pojo.vo.PageVo;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -20,19 +18,15 @@ import java.util.stream.Collectors;
  */
 public class JsonVos {
 
-
     public static JsonVo error (String msg) {
         /*  return new R().setSuccess(false).setMsg(msg);*/
         return new JsonVo(false,msg);
     }
 
-
-
     public static JsonVo error (){
         /*   return new R().setSuccess(false);*/
         return new JsonVo(false);
     }
-
 
     public static JsonVo error(Throwable e) {
         if (e instanceof CommonException){
@@ -66,23 +60,16 @@ public class JsonVos {
                     .collect(Collectors.toList());
             String msg  = StringUtils.collectionToDelimitedString(msgs, ", ");
             return error(msg);
-
         } else {
             //return Rs.error(e.getMessage());
             return JsonVos.error();
         }
-
     };
 
 
 
 
-
-
-
-
-
-    /* public static R ok  (DictTypeQuery query){
+    /* before1。public static R ok  (DictTypeQuery query){
      *//*  R r = new R();
         r.put(K_COUNT,query.getCount());
         return r.setSuccess(true).setData(query.getData());*//*
@@ -90,12 +77,9 @@ public class JsonVos {
        R r =  new R(query.getData());
        r.put(K_COUNT,query.getCount());
        return r;
-
-
     }*/
 
-
-    /*  public static R ok(ProvinceQuery query){
+    /* before1。 public static R ok(ProvinceQuery query){
      *//*  R r = new R();
         r.put(K_COUNT,query.getCount());
         return r.setSuccess(true).setData(query.getData());*//*
@@ -104,7 +88,7 @@ public class JsonVos {
         r.put(K_COUNT,query.getCount());
         return r;
     }
-    public static R ok(CityQuery query){
+    before1。public static R ok(CityQuery query){
       *//*  R r = new R();
         r.put(K_COUNT,query.getCount());
         return r.setSuccess(true).setData(query.getData());*//*
@@ -115,48 +99,34 @@ public class JsonVos {
     }
 
 */
-
     public static  JsonVo ok(CodeMsg msg){
         return new JsonVo(msg);
     }
 
     public  static  <T>  PageJsonVo<T> ok (PageVo<T> pageVo  ){
-
         PageJsonVo<T> pageJsonVo = new PageJsonVo<>();
-
         pageJsonVo.setCount (pageVo.getCount());
         pageJsonVo.setData(pageVo.getData());
-
         return  pageJsonVo;
     }
-
-
-
-
 
     public static JsonVo ok (String msg) {
      /*   return new R().setSuccess(true).setMsg(msg);*/
         return new JsonVo(true,msg);
     }
 
-
     public static <T> DataJsonVo<T> ok (T data) {
      /*   return new R().setSuccess(true).setMsg(msg);*/
-
         return new DataJsonVo<>(data);
     }
 
-
-      public  static  JsonVo ok(){
-
+    public  static  JsonVo ok(){
         return  new JsonVo();
       }
-
 
     public static <T> T raise(String msg) throws CommonException {
         throw new CommonException(msg);
     }
-
 
     public static  <T> T raise(CodeMsg codeMsg) throws CommonException {
         throw new CommonException(codeMsg);

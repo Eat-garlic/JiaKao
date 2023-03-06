@@ -9,7 +9,6 @@ public class DataJsonVo<T> extends JsonVo{
     };
 
 
-
     public DataJsonVo(String msg, T data){
         super(true, msg);
         this.data = data;

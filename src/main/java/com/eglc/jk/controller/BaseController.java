@@ -21,31 +21,27 @@ public abstract class BaseController<Po,ReqVo> {
    protected abstract IService<Po> getService();
 
    protected abstract Function<ReqVo,Po> getFunction();
-
-
     @PostMapping("/remove")
     @ApiOperation("删除一条或多条记录")
     public JsonVo remove(@ApiParam(value = "一个或多个id,多个id用逗号拼接",  required = true)
                     @NotBlank(message = "id不能为空") String id) {
         Map<String, Object> map = new HashMap<>();
-        if (getService().removeByIds(Arrays.asList(id.split(",")))) {
-           /* map.put("code", 0);
-            map.put("msg", "删除成功");*/
+        if (getService().removeByIds(Arrays.asList(id.split(",")))) { /* before1。 map.put("code", 0);  map.put("msg", "删除成功");*/
             return JsonVos.ok(CodeMsg.REMOVE_OK);
         } else {
           return JsonVos.raise(CodeMsg.REMOVE_ERROR);
         }
     };
 
-
-
     @PostMapping("/save")
     @ApiOperation("添加或更新")
     public JsonVo save(@Valid ReqVo reqVo){
       //  Map<String, Object> map = new HashMap<>();
 
-        Po po = getFunction().apply(reqVo);
 
+        //  /* MapStructs.INSTANCE::reqVo2po;*
+        //  别人返回的是函数式接口，  getFunction拿到一个req转Po的Function,  Function(函数式接口)只要apply一下就可以将t对象转为r对象   ，
+        Po po = getFunction().apply(reqVo);
         if(getService().saveOrUpdate(po)) {
           /*  map.put("code", 0);
             map.put("msg", "保存成功");*/
