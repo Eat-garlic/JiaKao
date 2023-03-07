@@ -25,7 +25,6 @@ public interface MapStructs {
     ExamPlaceVo po2vo(ExamPlace po);
     PlateRegionVo po2vo(PlateRegion po);
     ExamPlaceCourseVo po2vo(ExamPlaceCourse po);
-
     @Mapping(source = "loginTime",
             target = "loginTime",
             qualifiedBy = MapStructFormatter.Date2Millis.class)

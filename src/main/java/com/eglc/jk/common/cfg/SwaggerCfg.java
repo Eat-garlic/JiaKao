@@ -24,9 +24,19 @@ public class SwaggerCfg implements InitializingBean {
     private boolean enable;
 
 
+
     @Bean
+    public Docket sysdocket() {
+        return groupDocket("01_系统",
+                "系统模块文档",
+                "用户，角色，资源",
+                "/sys.*");
+    }
+
+
+        @Bean
     public Docket examdocket(){
-        return groupDocket("考试",
+        return groupDocket("03_考试",
                             "考场模块文档",
                             "考场， 科1科4， 科2科3" ,
                             "/exam.*");
@@ -46,7 +56,7 @@ public class SwaggerCfg implements InitializingBean {
 
     @Bean
     public Docket metadatadocket(){
-      return   groupDocket("元数据",
+      return   groupDocket("02_元数据",
                           "元数据模块文档",
                           "数据字典类型，数据字典条目，省份，城市",
                           "/(dict.*|plate.*)");
