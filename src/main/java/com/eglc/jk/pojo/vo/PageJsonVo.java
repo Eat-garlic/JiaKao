@@ -1,11 +1,13 @@
 package com.eglc.jk.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@ApiModel("分页结果，不需要总页数的")
 public class PageJsonVo<T> extends DataJsonVo<List<T>> {
 
     @ApiModelProperty("总数")

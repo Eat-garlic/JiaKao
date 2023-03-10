@@ -11,6 +11,5 @@ public class DictType {
     private Integer id;
     private String name;
     private String value;
-
     private String intro;
 }
